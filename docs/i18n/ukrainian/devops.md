@@ -435,7 +435,13 @@ sudo apt install build-essential
 npm install -g pnpm
 ```
 
-3. Клонуйте freeCodeCamp, налаштуйте середовище та ключі.
+3. Install pm2 globally.
+
+```console
+npm install -g pm2
+```
+
+4. Clone freeCodeCamp, set up env, and keys.
 
 ```console
 git clone https://github.com/freeCodeCamp/freeCodeCamp.git
@@ -443,28 +449,28 @@ cd freeCodeCamp
 git checkout prod-current # or any other branch to be deployed
 ```
 
-4. Створіть `.env` із безпечного сховища облікових даних.
+5. Create the `.env` from the secure credentials storage.
 
-5. Встановіть залежності
+6. Install dependencies
 
 ```console
 pnpm install
 ```
 
-6. Налаштуйте pm2 `logrotate` та запустіть під час завантаження
+7. Setup pm2 `logrotate` and startup on boot
 
 ```console
-pnpm pm2 install pm2-logrotate
-pnpm pm2 startup
+pm2 install pm2-logrotate
+pm2 startup
 ```
 
-7. Побудуйте сервер
+8. Build the server
 
 ```console
 pnpm prebuild && pnpm build:curriculum && pnpm build:server
 ```
 
-8.  Запустіть екземпляри
+9.  Start Instances
 
 ```console
 pnpm start:server
@@ -473,11 +479,11 @@ pnpm start:server
 ### Журналювання та моніторинг
 
 ```console
-pnpm pm2 logs
+pm2 logs
 ```
 
 ```console
-pnpm pm2 monit
+pm2 monit
 ```
 
 ### Оновлення екземплярів (обслуговування)
@@ -488,51 +494,51 @@ pnpm pm2 monit
 
 #### 1. Оновлення вручну: використовується для оновлення залежностей, змінних середовища.
 
-1. Зупиніть всі екземпляри
+1. Stop all instances
 
 ```console
-pnpm pm2 stop all
+pm2 stop all
 ```
 
-2. Встановіть залежності
+2. Install dependencies
 
 ```console
 pnpm install
 ```
 
-3. Побудуйте сервер
+3. Build the server
 
 ```console
 pnpm prebuild && pnpm build:curriculum && pnpm build:server
 ```
 
-4. Запустіть екземпляри
+4. Start Instances
 
 ```console
-pnpm start:server && pnpm pm2 logs
+pnpm start:server && pm2 logs
 ```
 
 #### 2. Постійне оновлення: використовується для логічних змін коду.
 
 ```console
-pnpm reload:server && pnpm pm2 logs
+pnpm reload:server && pm2 logs
 ```
 
 > [!NOTE] Ми обробляємо постійні оновлення коду та логіки через конвеєри. Вам не потрібно запускати ці команди. Вони тут для документації.
 
 #### 3. Оновлення Node
 
-1. Встановіть нову версію Node
+1. Install new Node version
 
-2. Оновіть pm2 для використання нової версії
+2. Update pm2 to use the new version
 
 ```console
-pnpm pm2 update
+pm2 update
 ```
 
 ## Робота над екземплярами клієнта
 
-1. Встановіть інструменти збірки для бінарних файлів node (`node-gyp`) тощо.
+1. Install build tools for node binaries (`node-gyp`) etc.
 
 ```console
 sudo apt install build-essential
@@ -542,9 +548,9 @@ sudo apt install build-essential
 
 Підготовка віртуальних машин за допомогою коду
 
-1. Встановіть Node LTS.
+1. Install Node LTS.
 
-2. Оновіть `npm`, встановіть PM2, налаштуйте `logrotate` та запустіть під час завантаження
+2. Update `npm` and install PM2 and setup `logrotate` and startup on boot
 
    ```console
    npm i -g npm@8
@@ -554,16 +560,16 @@ sudo apt install build-essential
    pm2 startup
    ```
 
-3. Клонуйте конфігурацію клієнта, налаштування середовища та ключі.
+3. Clone client config, setup env and keys.
 
    ```console
    git clone https://github.com/freeCodeCamp/client-config.git client
    cd client
    ```
 
-   Запустіть екземпляри заповнювачів для вебклієнта, вони будуть оновлені артефактами з конвеєра Azure.
+   Start placeholder instances for the web client, these will be updated with artifacts from the Azure pipeline.
 
-   > Завдання: це налаштування потрібно перемістити в сховище S3 або Azure Blob 
+   > Todo: This setup needs to move to S3 or Azure Blob storage 
    > 
    > ```console
    >    echo "serve -c ../serve.json -p 50505 www" > client-start-primary.sh
@@ -594,15 +600,15 @@ pm2 monit
 
 #### 1. Оновлення вручну: використовується для оновлення залежностей, змінних середовища.
 
-1. Зупиніть всі екземпляри
+1. Stop all instances
 
    ```console
    pm2 stop all
    ```
 
-2. Встановіть чи оновіть залежності
+2. Install or update dependencies
 
-3. Запустіть екземпляри
+3. Start Instances
 
    ```console
    pm2 start all --update-env && pm2 logs
@@ -628,7 +634,7 @@ pm2 reload all --update-env && pm2 logs
 
 **Кластер NGINX:**
 
-1. Завантажте і налаштуйте NGINX з репозиторію.
+1. Install NGINX and configure from repository.
 
    ```console
    sudo su
@@ -643,13 +649,13 @@ pm2 reload all --update-env && pm2 logs
    cd /etc/nginx
    ```
 
-2. Встановіть сертифікати Cloudflare і конфігурацію головної програми.
+2. Install Cloudflare origin certificates and upstream application config.
 
-   Отримайте оригінальні сертифікати зі сховища безпеки та встановіть їх в потрібних місцях.
+   Get the Cloudflare origin certificates from the secure storage and install at required locations.
 
-   **АБО**
+   **OR**
 
-   Перемістіть наявні сертифікати:
+   Move over existing certificates:
 
    ```console
    # Local
@@ -661,34 +667,34 @@ pm2 reload all --update-env && pm2 logs
    mv /tmp/ssl ./
    ```
 
-   Оновіть головні конфігурації:
+   Update Upstream Configurations:
 
    ```console
    vi configs/upstreams.conf
    ```
 
-   Додайте/оновіть вихідні IP-адреси програми.
+   Add/update the source/origin application IP addresses.
 
-3. Налаштуйте мережу та брандмауери.
+3. Set up networking and firewalls.
 
-   Налаштуйте брандмауери Azure та `ufw` відповідно до доступу до вихідних адрес.
+   Configure Azure firewalls and `ufw` as needed for ingress origin addresses.
 
-4. Додайте віртуальну машину до балансувальника навантаження.
+4. Add the VM to the load balancer backend pool.
 
-   За потреби налаштуйте та додайте правила до балансувальника навантаження. Можливо, також знадобиться додати віртуальну машину до пулу балансувальника навантаження.
+   Configure and add rules to load balancer if needed. You may also need to add the VMs to load balancer backend pool if needed.
 
 **Кластер Docker:**
 
-1. Завантажте і налаштуйте Docker з репозиторію
+1. Install Docker and configure from the repository
 
    ```console
    git clone https://github.com/freeCodeCamp/chat-config.git chat
    cd chat
    ```
 
-2. Налаштуйте необхідні змінні середовища та IP-адреси екземплярів.
+2. Configure the required environment variables and instance IP addresses.
 
-3. Запустіть сервер rocket-chat
+3. Run rocket-chat server
 
    ```console
    docker-compose config
@@ -697,13 +703,13 @@ pm2 reload all --update-env && pm2 logs
 
 ### Журналювання та моніторинг
 
-1. Перевірте стан служби NGINX за допомогою наступної команди:
+1. Check status for NGINX service using the below command:
 
    ```console
    sudo systemctl status nginx
    ```
 
-2. Перевірте стан запущених екземплярів docker за допомогою:
+2. Check status for running docker instances with:
 
    ```console
    docker ps
@@ -715,7 +721,7 @@ pm2 reload all --update-env && pm2 logs
 
 Налаштуйте зміни в екземплярах NGINX, які зберігаються на GitHub. Їх потрібно розгорнути в кожному екземплярі:
 
-1. SSH в екземпляр і введіть sudo
+1. SSH into the instance and enter sudo
 
    ```console
    sudo su
@@ -729,7 +735,7 @@ pm2 reload all --update-env && pm2 logs
    git reset --hard origin/main
    ```
 
-3. Протестуйте та повторно завантажте конфігурації [з Signals](https://docs.nginx.com/nginx/admin-guide/basic-functionality/runtime-control/#controlling-nginx).
+3. Test and reload the config [with Signals](https://docs.nginx.com/nginx/admin-guide/basic-functionality/runtime-control/#controlling-nginx).
 
    ```console
    nginx -t
@@ -738,44 +744,44 @@ pm2 reload all --update-env && pm2 logs
 
 **Кластер Docker:**
 
-1. SSH в екземпляр та перейдіть до шляху налаштування чату
+1. SSH into the instance and navigate to the chat config path
 
    ```console
    cd ~/chat
    ```
 
-2. Отримайте останній код конфігурації.
+2. Get the latest config code.
 
    ```console
    git fetch --all --prune
    git reset --hard origin/main
    ```
 
-3. Отримайте останній образ docker для Rocket.Chat
+3. Pull down the latest docker image for Rocket.Chat
 
    ```console
    docker-compose pull
    ```
 
-4. Оновіть запущені екземпляри
+4. Update the running instances
 
    ```console
    docker-compose up -d
    ```
 
-5. Переконайтесь, що екземпляри запущені
+5. Validate the instances are up
 
    ```console
    docker ps
    ```
 
-6. Вилучіть зайві ресурси
+6. Cleanup extraneous resources
 
    ```console
    docker system prune --volumes
    ```
 
-   Вивід:
+   Output:
 
    ```console
    WARNING! This will remove:
@@ -788,7 +794,7 @@ pm2 reload all --update-env && pm2 logs
    Are you sure you want to continue? [y/N] y
    ```
 
-   Виберіть «так» (y), щоб видалити все, що не використовується. Це видалить всі зупинені контейнери, мережі та томи, які не використовуються принаймні одним контейнером, а також завислі образи та кеш збірки.
+   Select yes (y) to remove everything that is not in use. This will remove all stopped containers, all networks and volumes not used by at least one container, and all dangling images and build caches.
 
 ## Робота над інструментами помічника
 
@@ -890,32 +896,32 @@ pm2 logs
 
 Наразі оновлення агентів вимагає їхнього видалення та переналаштування. Це необхідно для того, щоб вони правильно підбирали значення `PATH` та інші змінні оточення системи. Нам потрібно зробити це, щоб оновити Node.js на цільових віртуальних машинах розгортання.
 
-1. Перейдіть та перевірте статус служби
+1. Navigate and check status of the service
 
    ```console
    cd ~/azagent
    sudo ./svc.sh status
    ```
 
-2. Зупиніть службу
+2. Stop the service
 
    ```console
    sudo ./svc.sh stop
    ```
 
-3. Видаліть службу
+3. Uninstall the service
 
    ```console
    sudo ./svc.sh uninstall
    ```
 
-4. Видаліть агента з пулу конвеєра
+4. Remove the agent from the pipeline pool
 
    ```console
    ./config.sh remove
    ```
 
-5. Видаліть файли конфігурації
+5. Remove the config files
 
    ```console
    cd ~
@@ -928,32 +934,32 @@ pm2 logs
 
 Ми використовуємо [інструмент CLI](https://github.com/freecodecamp/sendgrid-email-blast) для наших тижневих листів. Щоб підготувати та почати цей процес потрібно:
 
-1. Увійдіть до DigitalOcean та почніть використовувати нові краплі в межах проєкту `Sendgrid`. Використайте знімок Ubuntu Sendgrid з найновішою датою. Він попередньо завантажений з інструментом CLI та сценарієм для отримання електронних пошт з бази даних. Зважаючи на поточний обсяг, трьох крапель достатньо для своєчасного надсилання листів.
+1. Sign in to DigitalOcean, and spin up new droplets under the `Sendgrid` project. Use the Ubuntu Sendgrid snapshot with the most recent date. This comes pre-loaded with the CLI tool and the script to fetch emails from the database. With the current volume, three droplets are sufficient to send the emails in a timely manner.
 
-2. Налаштуйте сценарій, щоб отримати віддалений доступ до списку електронних пошт.
+2. Set up the script to fetch the email list.
 
    ```console
    cd /home/freecodecamp/scripts/emails
    cp sample.env .env
    ```
 
-   Вам потрібно буде замінити значення заповнювачів у файлі `.env` на свої облікові дані.
+   You will need to replace the placeholder values in the `.env` file with your credentials.
 
-3. Запустіть сценарій.
+3. Run the script.
 
    ```console
    node get-emails.js emails.csv
    ```
 
-   Це збереже список електронних пошт у файлі `emails.csv`.
+   This will save the email list in an `emails.csv` file.
 
-4. Розділіть електронні пошти на декілька файлів, залежно від кількості потрібних крапель. Це найлегше зробити за допомогою `scp`, щоб локально отримати список електронних пошт та, використовуючи свій улюблений текстовий редактор, розділити їх на декілька файлів. Кожен файл потребує заголовку `email,unsubscribeId`.
+4. Break the emails down into multiple files, depending on the number of droplets you need. This is easiest to do by using `scp` to pull the email list locally and using your preferred text editor to split them into multiple files. Each file will need the `email,unsubscribeId` header.
 
-5. Перейдіть до каталогу CLI за допомогою `cd /home/sendgrid-email-blast` та налаштуйте інструмент [згідно документації](https://github.com/freeCodeCamp/sendgrid-email-blast/blob/main/README.md).
+5. Switch to the CLI directory with `cd /home/sendgrid-email-blast` and configure the tool [per the documentation](https://github.com/freeCodeCamp/sendgrid-email-blast/blob/main/README.md).
 
-6. Запустіть інструмент, щоб надіслати листи, дотримуючись [документації з користування](https://github.com/freeCodeCamp/sendgrid-email-blast/blob/main/docs/cli-steps.md).
+6. Run the tool to send the emails, following the [usage documentation](https://github.com/freeCodeCamp/sendgrid-email-blast/blob/main/docs/cli-steps.md).
 
-7. Як тільки розсилка листів завершиться, переконайтеся, що усі повідомлення доставлено успішно, перш ніж знищити краплі.
+7. When the email blast is complete, verify that no emails have failed before destroying the droplets.
 
 ## Керівництво з додавання екземплярів новин нових мов
 
@@ -961,12 +967,12 @@ pm2 logs
 
 Ми використовуємо власну [тему](https://github.com/freeCodeCamp/news-theme) для публікацій новин. Виконавши наступні зміни теми, можна додати нову мову.
 
-1. Врахуйте інструкцію `else if` до [коду ISO нової мови](https://www.loc.gov/standards/iso639-2/php/code_list.php) у [`setup-locale.js`](https://github.com/freeCodeCamp/news-theme/blob/main/assets/config/setup-locale.js)
-2. Створіть початкову папку конфігурації, створивши копію папки [`assets/config/en`](https://github.com/freeCodeCamp/news-theme/tree/main/assets/config/en) та змінивши її назву на код нової мови. (`en` —> `es` для іспанської)
-3. Всередині папки нової мови змініть назви змінних у `main.js` та `footer.js` на відповідні скорочені коди мови (`enMain` —> `esMain` для іспанської)
-4. Створіть копію [`locales/en.json`](https://github.com/freeCodeCamp/news-theme/blob/main/locales/en.json) та змініть її назву на код нової мови.
-5. Додайте сценарії для щойно створених файлів конфігурації до [`partials/i18n.hbs`](https://github.com/freeCodeCamp/news-theme/blob/main/partials/i18n.hbs).
-6. Додайте сценарій відповідної мови `day.js` з [cdnjs](https://cdnjs.com/libraries/dayjs/1.10.4) до [freeCodeCamp CDN](https://github.com/freeCodeCamp/cdn/tree/main/build/news-assets/dayjs/1.10.4/locale)
+1. Include an `else if` statement for the new [ISO language code](https://www.loc.gov/standards/iso639-2/php/code_list.php) in [`setup-locale.js`](https://github.com/freeCodeCamp/news-theme/blob/main/assets/config/setup-locale.js)
+2. Create an initial config folder by duplicating the [`assets/config/en`](https://github.com/freeCodeCamp/news-theme/tree/main/assets/config/en) folder and changing its name to the new language code. (`en` —> `es` for Spanish)
+3. Inside the new language folder, change the variable names in `main.js` and `footer.js` to the relevant language short code (`enMain` —> `esMain` for Spanish)
+4. Duplicate the [`locales/en.json`](https://github.com/freeCodeCamp/news-theme/blob/main/locales/en.json) and rename it to the new language code.
+5. In [`partials/i18n.hbs`](https://github.com/freeCodeCamp/news-theme/blob/main/partials/i18n.hbs), add scripts for the newly created config files.
+6. Add the related language `day.js` script from [cdnjs](https://cdnjs.com/libraries/dayjs/1.10.4) to the [freeCodeCamp CDN](https://github.com/freeCodeCamp/cdn/tree/main/build/news-assets/dayjs/1.10.4/locale)
 
 ### Зміни інформаційної панелі Ghost
 
