@@ -22,49 +22,49 @@ dashedName: match-a-literal-string-with-different-possibilities
 
 # --hints--
 
-Ви маєте отримати `true` для рядка `John has a pet dog.` за допомогою вашого регулярного виразу `petRegex`
+Регулярний вираз `petRegex` має повернути `true` для рядка `John has a pet dog.`
 
 ```js
 petRegex.lastIndex = 0;
 assert(petRegex.test('John has a pet dog.'));
 ```
 
-Ви маєте отримати `false` для рядка `Emma has a pet rock.` за допомогою вашого регулярного виразу `petRegex`
+Регулярний вираз `petRegex` має повернути `false` для рядка `Emma has a pet rock.`
 
 ```js
 petRegex.lastIndex = 0;
 assert(!petRegex.test('Emma has a pet rock.'));
 ```
 
-Ви маєте отримати `true` для рядка `Emma has a pet bird.` за допомогою вашого регулярного виразу `petRegex`
+Регулярний вираз `petRegex` має повернути `true` для рядка `Emma has a pet bird.`
 
 ```js
 petRegex.lastIndex = 0;
 assert(petRegex.test('Emma has a pet bird.'));
 ```
 
-Ви маєте отримати `true` для рядка `Liz has a pet cat.` за допомогою вашого регулярного виразу `petRegex`
+Регулярний вираз `petRegex` має повернути `true` для рядка `Liz has a pet cat.`
 
 ```js
 petRegex.lastIndex = 0;
 assert(petRegex.test('Liz has a pet cat.'));
 ```
 
-Ви маєте отримати `false` для рядка `Kara has a pet dolphin.` за допомогою вашого регулярного виразу `petRegex`
+Регулярний вираз `petRegex` має повернути `false` для рядка `Kara has a pet dolphin.`
 
 ```js
 petRegex.lastIndex = 0;
 assert(!petRegex.test('Kara has a pet dolphin.'));
 ```
 
-Ви маєте отримати `true` для рядка `Alice has a pet fish.` за допомогою вашого регулярного виразу `petRegex`
+Регулярний вираз `petRegex` має повернути `true` для рядка `Alice has a pet fish.`
 
 ```js
 petRegex.lastIndex = 0;
 assert(petRegex.test('Alice has a pet fish.'));
 ```
 
-Ви маєте отримати `false` для рядка `Jimmy has a pet computer.` за допомогою вашого регулярного виразу `petRegex`
+Регулярний вираз `petRegex` має повернути `false` для рядка `Jimmy has a pet computer.`
 
 ```js
 petRegex.lastIndex = 0;

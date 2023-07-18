@@ -28,13 +28,13 @@ testRegex.test(testStr);
 
 # --hints--
 
-Вам потрібно використати `.test()`, щоб перевірити регулярний вираз.
+Використайте `.test()`, щоб протестувати регулярний вираз.
 
 ```js
 assert(code.match(/myRegex.test\(\s*myString\s*\)/));
 ```
 
-У результаті ви повинні отримати `true`.
+Результат має повернути `true`.
 
 ```js
 assert(result === true);

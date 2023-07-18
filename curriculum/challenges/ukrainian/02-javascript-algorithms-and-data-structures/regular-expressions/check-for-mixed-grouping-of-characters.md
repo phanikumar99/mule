@@ -30,55 +30,55 @@ testRegex.test(testStr);
 
 # --hints--
 
-Ви маєте отримати `true` для рядка `Franklin D. Roosevelt` за допомогою вашого регулярного виразу `myRegex`
+Регулярний вираз `myRegex` має повернути `true` для рядка `Franklin D. Roosevelt`
 
 ```js
 myRegex.lastIndex = 0;
 assert(myRegex.test('Franklin D. Roosevelt'));
 ```
 
-Ви маєте отримати `true` для рядка `Eleanor Roosevelt` за допомогою вашого регулярного виразу `myRegex`
+Регулярний вираз `myRegex` має повернути `true` для рядка `Eleanor Roosevelt`
 
 ```js
 myRegex.lastIndex = 0;
 assert(myRegex.test('Eleanor Roosevelt'));
 ```
 
-Ви маєте отримати `false` для рядка `Franklin Rosevelt` за допомогою вашого регулярного виразу `myRegex`
+Регулярний вираз `myRegex` має повернути `false` для рядка `Franklin Rosevelt`
 
 ```js
 myRegex.lastIndex = 0;
 assert(!myRegex.test('Franklin Rosevelt'));
 ```
 
-Ви маєте отримати `false` для рядка `Frank Roosevelt` за допомогою вашого регулярного виразу `myRegex`
+Регулярний вираз `myRegex` має повернути `false` для рядка `Frank Roosevelt`
 
 ```js
 myRegex.lastIndex = 0;
 assert(!myRegex.test('Frank Roosevelt'));
 ```
 
-Your regex `myRegex` should return `false` for the string `FranklinRoosevelt`
+Регулярний вираз `myRegex` має повернути `false` для рядка `FranklinRoosevelt`
 
 ```js
 myRegex.lastIndex = 0;
 assert(!myRegex.test('FranklinRoosevelt'));
 ```
 
-Your regex `myRegex` should return `false` for the string `EleanorRoosevelt`
+Регулярний вираз `myRegex` має повернути `false` для рядка `EleanorRoosevelt`
 
 ```js
 myRegex.lastIndex = 0;
 assert(!myRegex.test('EleanorRoosevelt'));
 ```
 
-You should use `.test()` to test the regex.
+Використайте `.test()`, щоб протестувати регулярний вираз.
 
 ```js
 assert(code.match(/myRegex.test\(\s*myString\s*\)/));
 ```
 
-У результаті ви повинні отримати `true`.
+Результат має повернути `true`.
 
 ```js
 assert(result === true);
